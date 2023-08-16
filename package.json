@@ -16,5 +16,8 @@
     "url": "https://github.com/arpee/learningactions/issues"
   },
   "homepage": "https://github.com/arpee/learningactions#readme",
-  "dependencies": {   "express": "^4.17.1"}
+  "dependencies": {
+    "eslint": "^8.47.0",
+    "express": "^4.17.1"
+  }
 }
