@@ -2,14 +2,10 @@ module.exports = {
   env: {
     browser: true,
     commonjs: true,
-    es6: true,
+    es2021: true,
     node: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-  ],
+  extends: "eslint:recommended",
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -17,7 +13,5 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
   },
-  rules: {
-    indent: ["error", 2],
-  },
+  rules: {},
 };
