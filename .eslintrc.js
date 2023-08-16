@@ -2,30 +2,17 @@ module.exports = {
     "env": {
         "browser": true,
         "commonjs": true,
-        "es2021": true,
-      "node": true
+        "es6": true,
+        "node": true
     },
-    "extends": "standard-with-typescript",
-    "overrides": [
-        {
-            "env": {
-                "node": true
-            },
-            "files": [
-                ".eslintrc.{js,cjs}"
-            ],
-            "parserOptions": {
-                "sourceType": "script"
-            }
-        }
-    ],
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": 2018
     },
     "rules": {
-        "semi": [
-            "error",
-            "always"
-        ]
     }
-}
+};
