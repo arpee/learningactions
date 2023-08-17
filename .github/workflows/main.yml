@@ -17,7 +17,10 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Check if PR into Master from Dev
         if: (github.base_ref == 'main' || github.event.pull_request.base.ref == 'main') && !(github.head_ref == 'dev' || github.event.pull_request.head.ref == 'dev')
-        run: echo "can only pr to master from dev"
-        core.setFailed('Coverage test below tolerance')
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('can only pr to master from dev')
+
 
 
