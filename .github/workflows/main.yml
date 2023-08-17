@@ -1,29 +1,24 @@
 ---
-name: my-workflow
+name: TestBranches
 on:
-  push:
-    branches:
-      - dev
   pull_request:
     branches:
       - dev
       - main
-    types:
-      - closed
-
 jobs:
-  deploy:
+  one:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repo
-        uses: actions/checkout@v1
-      - name: step 0
-        run: echo github.ref
-      - name: step 0.1
-        run: echo github.event.pull_request.base.ref
-      - name: step 1
-        if: github.ref == 'refs/heads/dev' || github.event.pull_request.base.ref == 'dev'
-        run: echo "Hello develop"
-      - name: step 2
-        if: github.event.pull_request.base.ref == 'master'
-        run: echo "Hello master"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Check if PR into Master from Dev
+        if: (github.base_ref == 'main' || github.event.pull_request.base.ref == 'main') && !(github.head_ref == 'dev' || github.event.pull_request.head.ref == 'dev')
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('can only pr to master from dev')
+
+
+
