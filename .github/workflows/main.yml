@@ -1,15 +1,10 @@
 ---
 name: TestBranches
 on:
-  push:
-    branches:
-      - dev
   pull_request:
     branches:
       - dev
       - main
-
-
 jobs:
   one:
     runs-on: ubuntu-latest
@@ -19,7 +14,11 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Check if PR into Master from Dev
-        if: (github.ref == 'refs/base/main' || github.event.base.ref == 'main') && !(github.ref == 'refs/heads/dev' || github.event.head.ref == 'dev')
-        run: echo "can only pr to master from dev"
+        if: (github.base_ref == 'main' || github.event.pull_request.base.ref == 'main') && !(github.head_ref == 'dev' || github.event.pull_request.head.ref == 'dev')
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('can only pr to master from dev')
+
 
 
