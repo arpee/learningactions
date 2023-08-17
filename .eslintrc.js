@@ -5,7 +5,11 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: "eslint:recommended",
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
   globals: {
     Atomics: "readonly",
     SharedArrayBuffer: "readonly",
@@ -15,4 +19,5 @@ module.exports = {
   },
   rules: {
     indent: ["error", 2],
+  },
 };
