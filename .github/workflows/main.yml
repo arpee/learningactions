@@ -1,0 +1,29 @@
+---
+name: my-workflow
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+      - main
+    types:
+      - closed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v1
+      - name: step 0
+        run: echo github.ref
+      - name: step 0.1
+        run: echo github.event.pull_request.base.ref
+      - name: step 1
+        if: github.ref == 'refs/heads/dev' || github.event.pull_request.base.ref == 'dev'
+        run: echo "Hello develop"
+      - name: step 2
+        if: github.event.pull_request.base.ref == 'master'
+        run: echo "Hello master"
