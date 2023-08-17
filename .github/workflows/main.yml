@@ -19,5 +19,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Check if PR into Master from Dev
-        if: github.base_ref == 'main' && !github.head_ref == 'dev'
+        if: (github.ref == 'refs/base/main' || github.event.pull_request.base.ref == 'main') && !(github.ref == 'refs/heads/dev' || github.event.pull_request.head.ref == 'dev')
         run: echo "can only pr to master from dev"
+
+
